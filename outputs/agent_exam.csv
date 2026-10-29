@@ -1,0 +1,34 @@
+question,correct_answer,agent_answer,correct,tool_calls,sql_errors_self_fixed,agent_sql
+How many complaints are in the complaints table?,102402,"102,402",True,1,0,SELECT count(*) FROM complaints
+Which company has the most complaints?,CAPITAL ONE FINANCIAL CORPORATION,CAPITAL ONE FINANCIAL CORPORATION,True,1,0,"SELECT company, COUNT(*) as cnt FROM complaints GROUP BY company ORDER BY cnt DESC LIMIT 1"
+How many complaints with the issue 'Fees or interest' were received in 2025?,4810,4810,True,1,0,SELECT count(*) FROM complaints WHERE issue = 'Fees or interest' AND year = 2025
+What percentage of all complaints were 'Closed with monetary relief'?,16.6,16.6%,True,2,0,"SELECT company_response, COUNT(*) as cnt, ROUND(100.0 * COUNT(*) / (SELECT COUNT(*) FROM complaints), 1) as pct FROM complaints GROUP BY company_response"
+Which state has the most complaints?,CA,CA,True,3,0,"SELECT state, COUNT(*) as cnt FROM complaints GROUP BY state ORDER BY cnt DESC LIMIT 1"
+Which issue had the largest increase in number of complaints from 2024 to 2025?,Problem with a purchase shown on your statement,Problem with a purchase shown on your statement,True,2,0,"SELECT 
+  c.issue,
+  SUM(CASE WHEN c.year = 2024 THEN 1 ELSE 0 END) AS cnt_2024,
+  SUM(CASE WHEN c.year = 2025 THEN 1 ELSE 0 END) AS cnt_2025,
+  (SUM(CASE WHEN c.year = 2025 THEN 1 ELSE 0 END) - SUM(CASE WHEN c.year = 2024 THEN 1 ELSE 0 END)) AS increase
+FROM complaints c
+GROUP BY c.issue
+ORDER BY increase DESC
+LIMIT 1"
+How many complaints have a tag that includes 'Older American'?,10780,"10,780",True,2,0,SELECT count(*) FROM complaints WHERE tags LIKE '%Older American%'
+"Among the complaints triaged by the AI, what percentage were flagged as vulnerable?",16.7,16.7%,True,1,0,"SELECT 
+  ROUND(SUM(vulnerable) * 100.0 / COUNT(*), 1) AS pct_vulnerable
+FROM ai_triage"
+"Among AI-triaged complaints flagged as vulnerable, which original issue (from the complaints table) is most common?",Problem with a purchase shown on your statement,Problem with a purchase shown on your statement,True,2,0,"SELECT c.issue, COUNT(*) as cnt
+FROM complaints c
+JOIN ai_triage a ON c.complaint_id = a.complaint_id
+WHERE a.vulnerable = 1
+GROUP BY c.issue
+ORDER BY cnt DESC"
+"Among companies with at least 1,000 complaints, which has the highest percentage of untimely responses (timely_response = 'No')?",SYNCHRONY FINANCIAL,SYNCHRONY FINANCIAL,True,1,0,"SELECT company, 
+       COUNT(*) as total_complaints,
+       SUM(CASE WHEN timely_response = 'No' THEN 1 ELSE 0 END) as untimely_count,
+       ROUND(100.0 * SUM(CASE WHEN timely_response = 'No' THEN 1 ELSE 0 END) / COUNT(*), 1) as untimely_pct
+FROM complaints
+GROUP BY company
+HAVING COUNT(*) >= 1000
+ORDER BY untimely_pct DESC
+LIMIT 5"
