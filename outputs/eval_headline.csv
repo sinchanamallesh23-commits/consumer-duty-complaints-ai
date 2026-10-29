@@ -1,0 +1,4 @@
+model,accuracy_%,macro_F1_%,training_examples_used
+Guess most common issue,26.4,,0
+Baseline (TF-IDF + logistic regression),70.6,63.8,101000
+Gemini Flash-Lite (zero-shot),59.4,50.7,0

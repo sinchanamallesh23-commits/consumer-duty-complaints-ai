@@ -1,0 +1,12 @@
+rule,automated_%,accuracy_on_automated_%
+AI confidence >= 0.50,100.0,59.4
+AI confidence >= 0.55,99.9,59.5
+AI confidence >= 0.60,99.9,59.5
+AI confidence >= 0.65,99.9,59.5
+AI confidence >= 0.70,99.7,59.5
+AI confidence >= 0.75,99.7,59.5
+AI confidence >= 0.80,95.4,61.0
+AI confidence >= 0.85,89.1,62.4
+AI confidence >= 0.90,43.4,70.7
+AI confidence >= 0.95,11.4,70.2
+AI and baseline agree,65.0,79.1

@@ -1,0 +1,12 @@
+issue,complaints,baseline_recall,llm_recall,baseline_F1,llm_F1,F1_winner
+"Advertising and marketing, including promotional offers",49,0.63,0.65,0.66,0.65,Baseline
+Closing your account,76,0.72,0.72,0.72,0.64,Baseline
+Fees or interest,111,0.79,0.67,0.74,0.66,Baseline
+Getting a credit card,114,0.83,0.63,0.78,0.68,Baseline
+Incorrect information on your report,67,0.51,0.75,0.54,0.39,Baseline
+"Other features, terms, or problems",117,0.46,0.29,0.5,0.39,Baseline
+Problem when making payments,59,0.64,0.44,0.62,0.45,Baseline
+Problem with a company's investigation into an existing problem,87,0.71,0.01,0.76,0.02,Baseline
+Problem with a purchase shown on your statement,264,0.84,0.81,0.82,0.85,AI
+Struggling to pay your bill,13,0.23,0.54,0.32,0.33,AI
+Trouble using your card,43,0.53,0.65,0.57,0.52,Baseline
