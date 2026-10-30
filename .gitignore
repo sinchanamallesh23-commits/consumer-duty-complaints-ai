@@ -181,3 +181,5 @@ cython_debug/
 .cursorindexingignore
 data/clean/train.csv
 /data/raw
+.env.txt
+Untitled.ipynb
